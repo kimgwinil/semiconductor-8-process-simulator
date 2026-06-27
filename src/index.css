@@ -421,6 +421,13 @@ input[type="range"] {
   border-radius: 6px;
 }
 
+.mini-process.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .asset-card strong,
 .asset-card span {
   display: block;
@@ -538,6 +545,108 @@ input[type="range"] {
   display: block;
   border-radius: 6px;
   background: #f3f6f7;
+}
+
+.real-process-frame {
+  position: relative;
+  width: 100%;
+  height: 270px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #11191d;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+}
+
+.real-process-frame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: contrast(1.08) saturate(1.04);
+}
+
+.process-heat,
+.scan-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.scan-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.11) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: .22;
+  mix-blend-mode: screen;
+}
+
+.defect-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,.78);
+  box-shadow: 0 0 8px rgba(255,255,255,.35);
+}
+
+.defect-dot.hot {
+  background: #e65f4e;
+  box-shadow: 0 0 10px rgba(230,95,78,.8);
+}
+
+.metrology-overlay {
+  position: absolute;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 6px;
+  background: rgba(9, 18, 22, .66);
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+
+.metrology-overlay.top-left {
+  left: 12px;
+  top: 12px;
+}
+
+.metrology-overlay.bottom-right {
+  right: 12px;
+  bottom: 12px;
+  min-width: 145px;
+}
+
+.metrology-overlay strong {
+  display: block;
+  font-size: 15px;
+}
+
+.metrology-overlay span,
+.metrology-overlay p {
+  color: rgba(255,255,255,.78);
+  font-size: 11px;
+}
+
+.metrology-overlay p {
+  margin-bottom: 3px;
+}
+
+.live-badge {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  padding: 6px 9px;
+  border-radius: 5px;
+  background: rgba(20, 128, 62, .92);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.live-badge.risk {
+  background: rgba(183, 119, 19, .94);
+}
+
+.live-badge.fail {
+  background: rgba(189, 63, 51, .94);
 }
 
 .cross-canvas {

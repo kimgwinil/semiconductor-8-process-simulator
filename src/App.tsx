@@ -14,6 +14,14 @@ import {
   Wrench
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import cmpImage from "./assets/process/cmp.png";
+import depositionImage from "./assets/process/deposition.png";
+import diffusionImage from "./assets/process/diffusion.png";
+import etchingImage from "./assets/process/etching.png";
+import implantationImage from "./assets/process/ion-implantation.png";
+import metallizationImage from "./assets/process/metallization.png";
+import oxidationImage from "./assets/process/oxidation.png";
+import photoImage from "./assets/process/photolithography.png";
 
 type ChapterKey =
   | "oxidation"
@@ -341,6 +349,19 @@ const chapters: Chapter[] = [
     modes: ["Practice", "Exam"]
   }
 ];
+
+const processImages: Partial<Record<ChapterKey, string>> = {
+  oxidation: oxidationImage,
+  photo: photoImage,
+  etch: etchingImage,
+  diffusion: diffusionImage,
+  implant: implantationImage,
+  deposition: depositionImage,
+  metal: metallizationImage,
+  cmp: cmpImage,
+  integrated: oxidationImage,
+  master: photoImage
+};
 
 const defaults: Record<string, number> = {
   temperature: 1000,
@@ -1029,6 +1050,48 @@ function DefectScan({ result }: { result: Result }) {
   return <canvas className="defect-canvas" ref={ref} />;
 }
 
+function RealProcessImage({ chapter, result, values }: { chapter: Chapter; result: Result; values: Record<string, number> }) {
+  const image = processImages[chapter.key] || oxidationImage;
+  const guide = getGuide(chapter);
+  const intensity = processIntensity(chapter, values, result);
+  const overlayStyle = {
+    opacity: 0.12 + intensity.risk * 0.34,
+    background: result.verdict === "PASS"
+      ? "radial-gradient(circle at 45% 42%, rgba(18, 185, 159, .58), transparent 34%), radial-gradient(circle at 72% 28%, rgba(244, 202, 95, .42), transparent 22%)"
+      : "radial-gradient(circle at 45% 42%, rgba(227, 87, 66, .62), transparent 38%), radial-gradient(circle at 70% 32%, rgba(248, 178, 70, .52), transparent 24%)"
+  };
+  const defectDots = Array.from({ length: 14 + Math.round(result.risk / 5) }, (_, index) => ({
+    left: `${8 + ((index * 23 + result.risk) % 84)}%`,
+    top: `${12 + ((index * 37 + result.primary) % 70)}%`,
+    size: 4 + (index % 3) + Math.round(intensity.risk * 5)
+  }));
+
+  return (
+    <div className="real-process-frame">
+      <img src={image} alt={`${chapter.label} 공정 실물 유사 이미지`} />
+      <i className="process-heat" style={overlayStyle} />
+      <div className="scan-grid" />
+      {defectDots.map((dot, index) => (
+        <span
+          key={`${dot.left}-${dot.top}-${index}`}
+          className={index % 5 === 0 ? "defect-dot hot" : "defect-dot"}
+          style={{ left: dot.left, top: dot.top, width: dot.size, height: dot.size }}
+        />
+      ))}
+      <div className="metrology-overlay top-left">
+        <strong>{guide.resultName}</strong>
+        <span>{chapter.english}</span>
+      </div>
+      <div className="metrology-overlay bottom-right">
+        <p>{result.primaryLabel}</p>
+        <strong>{fmt(result.primary)} {result.primaryUnit}</strong>
+        <span>Risk {fmt(result.risk, 0)} / Quality {fmt(result.quality, 0)}</span>
+      </div>
+      <div className={`live-badge ${result.verdict.toLowerCase()}`}>{result.verdict}</div>
+    </div>
+  );
+}
+
 function ProcessViewport({ chapter, result, values, mode }: { chapter: Chapter; result: Result; values: Record<string, number>; mode: string }) {
   const ref = useCanvas((ctx, width, height) => {
     ctx.clearRect(0, 0, width, height);
@@ -1283,8 +1346,8 @@ export default function App() {
             시뮬레이션 실행
           </button>
           <div className="asset-card">
-            <div className="mini-process">
-              <ProcessViewport chapter={chapter} result={result} values={values} mode={mode} />
+            <div className="mini-process photo">
+              <img src={processImages[chapter.key] || oxidationImage} alt={`${chapter.label} 공정 미리보기`} />
             </div>
             <div>
               <strong>{guide.resultName}</strong>
@@ -1324,7 +1387,7 @@ export default function App() {
                 <strong>{activeView}</strong>
                 <span>{result.verdict === "PASS" ? "공정 조건 정상" : result.verdict === "RISK" ? "관리 필요" : "조건 이탈"}</span>
               </div>
-              {activeView === "웨이퍼 뷰" && <WaferMap result={result} chapter={chapter} />}
+              {activeView === "웨이퍼 뷰" && <RealProcessImage chapter={chapter} result={result} values={values} />}
               {activeView === "단면 뷰" && <CrossSection result={result} chapter={chapter} />}
               {activeView === "내부 공정" && <ProcessViewport chapter={chapter} result={result} values={values} mode={mode} />}
               {activeView === "불량 검사" && (

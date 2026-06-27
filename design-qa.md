@@ -12,6 +12,8 @@ Checks completed:
 - Basic/deep theory tabs are available per process, with process-stage cards explaining what happens inside the tool.
 - Main simulator view now includes reference-style lower panels for process result summary, process status, and process notes before the quiz area.
 - View tabs and export actions stay on one line at desktop width to better match the supplied metrology workstation reference.
+- Digital Twin main view now uses generated realistic bitmap assets for all 8 semiconductor processes instead of generic canvas-only visuals.
+- Process switching was checked between oxidation and etching; the main process image and left preview update to process-specific imagery.
 - Chapter navigation includes all 8 processes plus integrated simulation and master evaluation.
 - Simulation controls update process-specific metrics and PASS/RISK/FAIL state.
 - Quiz answers remain hidden until the user submits for grading and explanation.
