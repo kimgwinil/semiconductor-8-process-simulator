@@ -7,6 +7,9 @@ Checks completed:
 - Desktop viewport 1440 x 1024 renders the simulator dashboard without blank primary panels.
 - Mobile viewport 390 x 844 stacks controls, simulator visuals, results, quiz, and learning flow without horizontal page overflow.
 - Canvas-based wafer map, cross-section, and profile chart render non-empty visual data.
+- Equipment controls now show ideal operating windows, current value pins, and beginner-friendly OK/warning/out-of-range labels.
+- The internal process view renders a process-specific visual for oxidation, photo, etch, diffusion, implant, deposition, metallization, and CMP.
+- Basic/deep theory tabs are available per process, with process-stage cards explaining what happens inside the tool.
 - Chapter navigation includes all 8 processes plus integrated simulation and master evaluation.
 - Simulation controls update process-specific metrics and PASS/RISK/FAIL state.
 - Quiz answers remain hidden until the user submits for grading and explanation.
