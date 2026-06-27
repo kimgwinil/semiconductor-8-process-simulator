@@ -10,6 +10,8 @@ Checks completed:
 - Equipment controls now show ideal operating windows, current value pins, and beginner-friendly OK/warning/out-of-range labels.
 - The internal process view renders a process-specific visual for oxidation, photo, etch, diffusion, implant, deposition, metallization, and CMP.
 - Basic/deep theory tabs are available per process, with process-stage cards explaining what happens inside the tool.
+- Main simulator view now includes reference-style lower panels for process result summary, process status, and process notes before the quiz area.
+- View tabs and export actions stay on one line at desktop width to better match the supplied metrology workstation reference.
 - Chapter navigation includes all 8 processes plus integrated simulation and master evaluation.
 - Simulation controls update process-specific metrics and PASS/RISK/FAIL state.
 - Quiz answers remain hidden until the user submits for grading and explanation.

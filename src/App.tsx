@@ -1303,12 +1303,18 @@ export default function App() {
               <h1>실물 유사 공정 결과</h1>
               <p>{guide.visualLabel}</p>
             </div>
-            <div className="view-tabs">
-              {["웨이퍼 뷰", "단면 뷰", "내부 공정", "불량 검사"].map((item) => (
-                <button key={item} type="button" className={activeView === item ? "active" : ""} onClick={() => setActiveView(item)}>
-                  {item}
-                </button>
-              ))}
+            <div className="stage-tools">
+              <div className="stage-actions">
+                <button type="button"><Save size={14} /> 이미지 저장</button>
+                <button type="button"><Download size={14} /> 데이터 내보내기</button>
+              </div>
+              <div className="view-tabs">
+                {["웨이퍼 뷰", "단면 뷰", "내부 공정", "불량 검사"].map((item) => (
+                  <button key={item} type="button" className={activeView === item ? "active" : ""} onClick={() => setActiveView(item)}>
+                    {item}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -1375,6 +1381,27 @@ export default function App() {
                 <em>{stage.signal}</em>
               </div>
             ))}
+          </div>
+          <div className="fab-summary-grid">
+            <section className="fab-summary wide">
+              <h3>공정 결과 종합</h3>
+              <div className="summary-cards">
+                <ResultCard label={result.primaryLabel} value={`${fmt(result.primary)} ${result.primaryUnit}`} target={chapter.key === "oxidation" ? "목표: 20-120 nm" : "목표 범위 내"} pass={result.verdict !== "FAIL"} />
+                <ResultCard label="균일도" value={`±${fmt(result.uniformity)}%`} target="목표: ≤ 3.0%" pass={result.uniformity <= 3} />
+                <ResultCard label="막질 / 품질" value={result.quality >= 82 ? "우수" : result.quality >= 65 ? "관리" : "불량"} target="목표: 우수 이상" pass={result.quality >= 78} />
+                <ResultCard label={result.secondaryLabel} value={`${fmt(result.secondary)} ${result.secondaryUnit}`} target="참조 window 비교" pass={result.risk < 65} />
+              </div>
+            </section>
+            <section className="fab-summary state">
+              <h3>공정 상태</h3>
+              <div className={`status-ring ${result.verdict.toLowerCase()}`}>{result.verdict}</div>
+              <p>{result.verdict === "PASS" ? "공정 조건이 사양 내에 있습니다." : result.verdict === "RISK" ? "일부 장비 조건이 권장 구간을 벗어났습니다." : "공정 조건 재설정이 필요합니다."}</p>
+            </section>
+            <section className="fab-summary note">
+              <h3>공정 노트</h3>
+              <p>{result.note}</p>
+              <p>{guide.internals.slice(0, 2).join(" · ")}</p>
+            </section>
           </div>
         </section>
 
@@ -1481,6 +1508,17 @@ function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; 
       <span>{icon}</span>
       <p>{label}</p>
       <strong>{value}</strong>
+    </div>
+  );
+}
+
+function ResultCard({ label, value, target, pass }: { label: string; value: string; target: string; pass: boolean }) {
+  return (
+    <div className="result-card">
+      <span>{label}</span>
+      <strong>{value}</strong>
+      <p>{target}</p>
+      <em className={pass ? "pass" : "fail"}>{pass ? "PASS" : "CHECK"}</em>
     </div>
   );
 }
