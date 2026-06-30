@@ -174,7 +174,7 @@ button {
 }
 
 .chapter-tabs button {
-  height: 42px;
+  min-height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -183,11 +183,14 @@ button {
   background: #fff;
   border-radius: 6px;
   color: #4a565b;
-  padding: 0 5px;
+  padding: 5px;
   font-size: 12px;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  line-height: 1.12;
+  text-align: center;
 }
 
 .chapter-tabs span {
@@ -672,6 +675,10 @@ input[type="range"] {
   font-size: 10px;
   font-weight: 800;
   backdrop-filter: blur(4px);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  line-height: 1.1;
+  text-align: center;
 }
 
 .wafer-step-strip span.active {
@@ -989,11 +996,13 @@ input[type="range"] {
 }
 
 .reaction-stages div {
-  min-height: 96px;
+  min-height: 112px;
   border: 1px solid #dce5e7;
   border-radius: 7px;
   padding: 9px;
   background: #fff;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .reaction-stages span {
@@ -1013,11 +1022,17 @@ input[type="range"] {
   display: block;
   margin-bottom: 5px;
   font-size: 12px;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .reaction-stages p {
   color: #6b777c;
   font-size: 11px;
+  line-height: 1.22;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .reaction-panel.active .reaction-stages div.lit {
@@ -1291,6 +1306,7 @@ input[type="range"] {
 }
 
 .pre-learning-flow button {
+  max-width: 210px;
   padding: 6px 9px;
   border: 1px solid #cfe1e3;
   border-radius: 999px;
@@ -1299,6 +1315,11 @@ input[type="range"] {
   font-size: 12px;
   font-weight: 800;
   cursor: pointer;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  line-height: 1.15;
+  text-align: center;
 }
 
 .pre-learning-flow button:hover,
@@ -1320,6 +1341,8 @@ input[type="range"] {
   color: #2f464c;
   font-size: 12px;
   line-height: 1.45;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .stage-popover strong {
@@ -1353,6 +1376,8 @@ input[type="range"] {
   border: 1px solid #d4e7e8;
   border-radius: 6px;
   background: rgba(255,255,255,.74);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .stage-detail-grid ul {
@@ -1462,6 +1487,8 @@ input[type="range"] {
   border-radius: 8px;
   padding: 12px 12px 10px 44px;
   background: #fbfcfc;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .process-flow span {
@@ -1483,12 +1510,17 @@ input[type="range"] {
   display: block;
   margin-bottom: 5px;
   font-size: 13px;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .process-flow p {
   color: #5f6c71;
   font-size: 12px;
   line-height: 1.35;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .process-flow em {
@@ -1501,6 +1533,10 @@ input[type="range"] {
   font-size: 11px;
   font-style: normal;
   font-weight: 800;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  line-height: 1.15;
 }
 
 .fab-summary-grid {
@@ -1536,12 +1572,17 @@ input[type="range"] {
   background: #fff;
   padding: 10px;
   text-align: center;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .result-card span {
   display: block;
   color: #68757a;
   font-size: 12px;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  line-height: 1.16;
 }
 
 .result-card strong {
@@ -1549,6 +1590,9 @@ input[type="range"] {
   margin: 8px 0 3px;
   color: #0b7770;
   font-size: 18px;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  line-height: 1.15;
 }
 
 .result-card p {
@@ -1556,6 +1600,8 @@ input[type="range"] {
   color: #7a878c;
   font-size: 11px;
   line-height: 1.25;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .result-card em {
@@ -2020,9 +2066,25 @@ details p {
     padding: 14px;
   }
 
-  .status-strip,
-  .header-actions {
+  .status-strip {
     display: none;
+  }
+
+  .header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .language-control {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .language-control select {
+    min-width: 0;
+    width: 180px;
   }
 
   .chapter-tabs {

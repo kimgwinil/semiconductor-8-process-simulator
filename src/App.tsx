@@ -3032,7 +3032,7 @@ export default function App() {
   }
 
   return (
-    <main className="app-shell">
+    <main className="app-shell" key={language}>
       <header className="topbar">
         <div className="brand">
           <Layers3 size={24} />
