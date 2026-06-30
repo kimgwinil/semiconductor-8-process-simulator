@@ -22,6 +22,7 @@ import oxidationImage from "./assets/process/oxidation.png";
 import packagingImage from "./assets/process/packaging.png";
 import photoImage from "./assets/process/photolithography.png";
 import waferImage from "./assets/process/wafer.png";
+import { LANGUAGE_OPTIONS, type LanguageCode, setActiveLanguage, translateActiveText, translateElement, translateText } from "./i18n";
 
 type ChapterKey =
   | "oxidation"
@@ -1885,7 +1886,7 @@ function CrossSection({ result, chapter, simulating = false, runId = 0 }: { resu
     function label(text: string, x: number, y: number, color = "rgba(255,255,255,.92)") {
       ctx.fillStyle = color;
       ctx.font = "700 13px Inter, sans-serif";
-      ctx.fillText(text, x, y);
+      ctx.fillText(translateActiveText(text), x, y);
     }
 
     function drawSilicon(y: number, h: number) {
@@ -2046,7 +2047,7 @@ function CrossSection({ result, chapter, simulating = false, runId = 0 }: { resu
       ctx.fillStyle = "#b9c5c8";
       ctx.fillRect(0, top, width, layerHeight);
       drawSilicon(substrateTop, height - substrateTop);
-      label(chapter.key === "oxidation" ? "SiO2" : chapter.label, width * 0.1, top + layerHeight / 2 + 5);
+      label(chapter.key === "oxidation" ? "SiO2" : translateActiveText(chapter.label), width * 0.1, top + layerHeight / 2 + 5);
       label("Si", width * 0.12, substrateTop + 58);
     }
 
@@ -2235,7 +2236,7 @@ function DefectParetoChart({ result, chapter }: { result: Result; chapter: Chapt
       ctx.fillRect(72, y, (width - 92) * (value / 100), 13);
       ctx.fillStyle = "#4f5e64";
       ctx.font = "700 10px Inter, sans-serif";
-      ctx.fillText(names[index] || `D${index + 1}`, 10, y + 10);
+      ctx.fillText(translateActiveText(names[index] || `D${index + 1}`), 10, y + 10);
     });
     ctx.fillStyle = "#203039";
     ctx.font = "800 12px Inter, sans-serif";
@@ -2271,7 +2272,7 @@ function DefectScan({ result, chapter, variant = 0, simulating = false, runId = 
     const label = chapter.defects[variant % chapter.defects.length]?.name || "검출 결함";
     ctx.font = "700 12px Inter, sans-serif";
     ctx.fillStyle = "rgba(255,255,255,.88)";
-    ctx.fillText(label, 10, 18);
+    ctx.fillText(translateActiveText(label), 10, 18);
 
     if (chapter.key === "implant") {
       const cols = 9;
@@ -2822,13 +2823,14 @@ function ProcessViewport({ chapter, result, values, mode, simulating = false, ru
 
     ctx.fillStyle = "rgba(255,255,255,.92)";
     ctx.font = "700 15px Inter, sans-serif";
-    ctx.fillText(getGuide(chapter).resultName, 16, height - 18);
+    ctx.fillText(translateActiveText(getGuide(chapter).resultName), 16, height - 18);
   }, [chapter, result, values, mode, simulating, runId]);
   return <canvas className={`visual-canvas process-canvas ${simulating ? "simulating-canvas" : ""}`} ref={ref} />;
 }
 
 export default function App() {
   const [chapterKey, setChapterKey] = useState<ChapterKey>("diffusion");
+  const [language, setLanguage] = useState<LanguageCode>("ko");
   const [modeByChapter, setModeByChapter] = useState<Record<string, string>>({});
   const [values, setValues] = useState<Record<string, number>>(defaults);
   const [activeView, setActiveView] = useState("웨이퍼 뷰");
@@ -2859,8 +2861,10 @@ export default function App() {
   const theoryItems = getTheoryItems(chapter, guide, theoryLevel);
   const activeViewRealityNote = getViewRealityNote(chapter, activeView);
   const reportText = useMemo(() => makeReport(chapter, result, mode, values, theoryItems, settings), [chapter, result, mode, values, theoryItems, settings]);
+  const localizedReportText = useMemo(() => translateText(reportText, language), [reportText, language]);
   const progress = Math.round((chapter.index / chapters.length) * 100);
   const simPhase = simRunId * 1000 + simFrame;
+  setActiveLanguage(language);
   const quizScore = useMemo(() => {
     return quizBank.reduce((score, item, index) => {
       const answer = (answers[index] || "").trim().toLowerCase();
@@ -2873,6 +2877,13 @@ export default function App() {
     const timer = window.setInterval(() => setSimFrame((current) => current + 1), 120);
     return () => window.clearInterval(timer);
   }, [isSimulating]);
+
+  useEffect(() => {
+    setActiveLanguage(language);
+    document.documentElement.lang = language === "zh" ? "zh-CN" : language;
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    translateElement(document.body, language);
+  });
 
   useEffect(() => {
     try {
@@ -2952,8 +2963,8 @@ export default function App() {
 
   function exportReport() {
     const filename = `fab-report-${chapter.key}-${new Date().toISOString().slice(0, 10)}.txt`;
-    downloadText(filename, reportText);
-    setToast("리포트 파일을 내보냈습니다.");
+    downloadText(filename, localizedReportText);
+    setToast(language === "ko" ? "리포트 파일을 내보냈습니다." : translateText("리포트 파일을 내보냈습니다.", language));
   }
 
   function saveActiveImage() {
@@ -3044,6 +3055,14 @@ export default function App() {
           </div>
         </div>
         <nav className="header-actions">
+          <label className="language-control">
+            <span>Language</span>
+            <select value={language} onChange={(event) => setLanguage(event.target.value as LanguageCode)}>
+              {LANGUAGE_OPTIONS.map((item) => (
+                <option key={item.code} value={item.code}>{item.label}</option>
+              ))}
+            </select>
+          </label>
           <button type="button" onClick={saveConditions}><Save size={16} /> 조건 저장</button>
           <button type="button" onClick={() => setModalView("report")}><Download size={16} /> 리포트</button>
           <button type="button" onClick={() => setModalView("settings")}><Wrench size={16} /> 설정</button>
@@ -3354,7 +3373,7 @@ export default function App() {
               <ResultCard label={result.primaryLabel} value={`${fmt(result.primary)} ${result.primaryUnit}`} target="현재 조건 계산값" pass={result.verdict !== "FAIL"} />
               <ResultCard label="품질지수" value={`${fmt(result.quality, 0)} / 100`} target="공정 window 기준" pass={result.quality >= 78} />
             </div>
-            <textarea readOnly value={reportText} aria-label="리포트 내용" />
+            <textarea readOnly value={localizedReportText} aria-label="리포트 내용" />
             <div className="modal-actions">
               <button type="button" onClick={exportReport}><Download size={16} /> TXT 내보내기</button>
             </div>

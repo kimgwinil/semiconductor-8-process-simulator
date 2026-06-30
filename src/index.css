@@ -35,7 +35,7 @@ button {
 .topbar {
   height: 76px;
   display: grid;
-  grid-template-columns: 300px 1fr 310px;
+  grid-template-columns: 300px 1fr minmax(520px, auto);
   align-items: center;
   gap: 20px;
   padding: 0 20px;
@@ -124,6 +124,31 @@ button {
 .header-actions {
   justify-content: flex-end;
   gap: 8px;
+}
+
+.language-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #d6dfe2;
+  border-radius: 6px;
+  background: #fff;
+  color: #344247;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.language-control select {
+  height: 28px;
+  min-width: 128px;
+  border: 1px solid #d6dfe2;
+  border-radius: 5px;
+  background: #f8fbfb;
+  color: #223035;
+  font: inherit;
+  font-weight: 700;
 }
 
 .header-actions button,
