@@ -351,30 +351,53 @@ input[type="range"] {
 .range-meta,
 .range-explain {
   display: grid;
-  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 8px;
   min-width: 0;
 }
 
+.range-meta {
+  grid-template-columns: 1fr 1fr;
+  row-gap: 4px;
+}
+
 .range-meta small {
   color: #7d898e;
   font-size: 10px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.range-meta small:first-of-type {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+}
+
+.range-meta small:last-of-type {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+  text-align: right;
 }
 
 .range-meta strong {
+  grid-column: 1 / -1;
+  grid-row: 1;
   justify-self: center;
   color: #0b766f;
   font-size: 11px;
-  max-width: 100%;
+  width: 100%;
   min-width: 0;
-  line-height: 1.2;
+  line-height: 1.15;
   overflow-wrap: anywhere;
   text-align: center;
+  white-space: normal;
+  hyphens: auto;
 }
 
 .range-explain {
-  grid-template-columns: minmax(58px, max-content) minmax(0, 1fr);
+  grid-template-columns: minmax(76px, 34%) minmax(0, 1fr);
   align-items: stretch;
 }
 
@@ -382,8 +405,8 @@ input[type="range"] {
   display: inline-grid;
   place-items: center;
   min-height: 26px;
-  min-width: 58px;
-  max-width: 84px;
+  width: 100%;
+  min-width: 0;
   padding: 3px 6px;
   border-radius: 5px;
   font-size: 10px;
