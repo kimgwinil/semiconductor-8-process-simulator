@@ -261,7 +261,7 @@ p {
 
 .segmented {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  grid-template-columns: 1fr;
   gap: 6px;
   margin: 16px 0;
   padding: 4px;
