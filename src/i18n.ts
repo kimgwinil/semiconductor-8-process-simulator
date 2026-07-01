@@ -1,4 +1,4 @@
-export type LanguageCode = "ko" | "en" | "ja" | "zh" | "es" | "ar" | "ms";
+export type LanguageCode = "ko" | "en" | "ja" | "zh" | "es" | "ar" | "ms" | "vi";
 
 export const LANGUAGE_OPTIONS: { code: LanguageCode; label: string }[] = [
   { code: "en", label: "English" },
@@ -7,6 +7,7 @@ export const LANGUAGE_OPTIONS: { code: LanguageCode; label: string }[] = [
   { code: "es", label: "Español" },
   { code: "ar", label: "العربية" },
   { code: "ms", label: "Bahasa Melayu" },
+  { code: "vi", label: "Tiếng Việt" },
   { code: "ko", label: "한국어" }
 ];
 
@@ -7666,10 +7667,102 @@ const TRANSLATIONS: Record<Exclude<LanguageCode, "ko">, Record<string, string>> 
     "분": "minit",
     "초": "detik",
     "점": "titik"
+  },
+  "vi": {
+    "Language": "Ngôn ngữ",
+    "반도체 8대공정 시뮬레이터": "Trình mô phỏng 8 công đoạn bán dẫn",
+    "Digital Twin Fab Simulator": "Trình mô phỏng fab song sinh số",
+    "현재 챕터": "Chương hiện tại",
+    "전체 진행률": "Tiến độ tổng thể",
+    "알림": "Thông báo",
+    "가이드": "Hướng dẫn",
+    "리포트": "Báo cáo",
+    "설정": "Cài đặt",
+    "통합 시뮬레이션": "Mô phỏng tích hợp",
+    "종합 평가": "Đánh giá tổng hợp",
+    "웨이퍼": "Wafer",
+    "산화": "Oxy hóa",
+    "포토": "Quang khắc",
+    "식각": "Khắc",
+    "증착/이온주입": "Lắng đọng/Cấy ion",
+    "금속배선": "Liên kết kim loại",
+    "EDS": "EDS",
+    "패키징": "Đóng gói",
+    "장비 조건": "Điều kiện thiết bị",
+    "조건 저장": "Lưu điều kiện",
+    "불러오기": "Tải lại",
+    "공정 방식": "Phương thức công nghệ",
+    "시뮬레이션 실행": "Chạy mô phỏng",
+    "시뮬레이션 정지": "Dừng mô phỏng",
+    "시뮬레이션 로그": "Nhật ký mô phỏng",
+    "실물 유사 공정 결과": "Kết quả công nghệ gần thực tế",
+    "공정 미리보기": "Xem trước quy trình",
+    "공정 결과 종합": "Tổng hợp kết quả quy trình",
+    "공정 상태": "Trạng thái quy trình",
+    "공정 노트": "Ghi chú quy trình",
+    "공정 조건 정상": "Điều kiện quy trình bình thường",
+    "공정 조건이 사양 내에 있습니다.": "Điều kiện quy trình nằm trong thông số kỹ thuật.",
+    "일부 장비 조건이 권장 구간을 벗어났습니다.": "Một số điều kiện thiết bị nằm ngoài vùng khuyến nghị.",
+    "공정 조건 재설정이 필요합니다.": "Cần thiết lập lại điều kiện quy trình.",
+    "공정 조건": "Điều kiện quy trình",
+    "공정 이론": "Lý thuyết quy trình",
+    "이론 학습": "Học lý thuyết",
+    "실습": "Thực hành",
+    "기초": "Cơ bản",
+    "중급": "Trung cấp",
+    "심화": "Nâng cao",
+    "공정 이해 목표": "Mục tiêu hiểu quy trình",
+    "시뮬레이션 관찰": "Quan sát mô phỏng",
+    "실습 판정 기준": "Tiêu chí đánh giá thực hành",
+    "결정 / 표면 품질": "Chất lượng tinh thể/bề mặt",
+    "막질 / 품질": "Chất lượng màng",
+    "균일도": "Độ đồng đều",
+    "우수": "Tốt",
+    "관리": "Cần kiểm soát",
+    "불량": "Lỗi",
+    "목표: 우수 이상": "Mục tiêu: tốt trở lên",
+    "목표 범위 내": "Trong phạm vi mục tiêu",
+    "참조 window 비교": "So sánh với cửa sổ tham chiếu",
+    "권장": "Khuyến nghị",
+    "주의": "Chú ý",
+    "이탈": "Lệch chuẩn",
+    "권장 구간": "Vùng khuyến nghị",
+    "조건 이탈": "Điều kiện lệch chuẩn",
+    "관리 필요": "Cần kiểm soát",
+    "정상": "Bình thường",
+    "목표": "Mục tiêu",
+    "결과 요약": "Tóm tắt kết quả",
+    "[결과 요약]": "[Tóm tắt kết quả]",
+    "- 품질지수:": "- Chỉ số chất lượng:",
+    "[장비 조건]": "[Điều kiện thiết bị]",
+    "[불량 모드]": "[Chế độ lỗi]",
+    "[공정 이론]": "[Lý thuyết quy trình]",
+    "TXT 내보내기": "Xuất TXT",
+    "데이터 내보내기": "Xuất dữ liệu",
+    "조건 저장 완료": "Đã lưu điều kiện",
+    "리포트 파일명": "Tên tệp báo cáo",
+    "저장": "Lưu",
+    "닫기": "Đóng",
+    "재료": "Vật liệu",
+    "장비": "Thiết bị",
+    "계측": "Đo lường",
+    "검사": "Kiểm tra",
+    "관찰": "Quan sát",
+    "원리": "Nguyên lý",
+    "이론": "Lý thuyết",
+    "챕터": "Chương",
+    "퀴즈": "Câu hỏi",
+    "통과": "Đạt",
+    "양품": "Sản phẩm đạt",
+    "수율": "Hiệu suất",
+    "분": "phút",
+    "초": "giây",
+    "점": "điểm"
   }
 };
 
 const sortedKeysCache = new Map<Exclude<LanguageCode, "ko">, string[]>();
+const mergedTranslationCache = new Map<Exclude<LanguageCode, "ko">, Record<string, string>>();
 let activeLanguage: LanguageCode = "ko";
 
 export function setActiveLanguage(language: LanguageCode) {
@@ -7679,14 +7772,22 @@ export function setActiveLanguage(language: LanguageCode) {
 function getKeys(language: Exclude<LanguageCode, "ko">) {
   const cached = sortedKeysCache.get(language);
   if (cached) return cached;
-  const keys = Object.keys(TRANSLATIONS[language]).sort((a, b) => b.length - a.length);
+  const keys = Object.keys(getTranslationMap(language)).sort((a, b) => b.length - a.length);
   sortedKeysCache.set(language, keys);
   return keys;
 }
 
+function getTranslationMap(language: Exclude<LanguageCode, "ko">): Record<string, string> {
+  const cached = mergedTranslationCache.get(language);
+  if (cached) return cached;
+  const map = language === "vi" ? { ...TRANSLATIONS.en, ...TRANSLATIONS.vi } : TRANSLATIONS[language];
+  mergedTranslationCache.set(language, map);
+  return map;
+}
+
 export function translateText(input: string, language: LanguageCode): string {
   if (language === "ko" || !input) return input;
-  const map = TRANSLATIONS[language];
+  const map = getTranslationMap(language);
   const exact = map[input];
   if (exact) return exact;
   const leading = input.match(/^\s*/)?.[0] || "";
