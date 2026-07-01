@@ -3045,7 +3045,7 @@ export default function App() {
         <div className="status-strip">
           <div>
             <span>현재 챕터</span>
-            <strong>{chapter.index}. {chapter.label} 공정</strong>
+            <strong>{translateText(`${chapter.index}. ${chapter.label} 공정`, language)}</strong>
           </div>
           <div className="progress-block">
             <span>전체 진행률</span>
