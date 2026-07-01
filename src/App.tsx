@@ -2864,6 +2864,7 @@ export default function App() {
   const localizedReportText = useMemo(() => translateText(reportText, language), [reportText, language]);
   const progress = Math.round((chapter.index / chapters.length) * 100);
   const simPhase = simRunId * 1000 + simFrame;
+  const qualityLabel = chapter.key === "diffusion" ? "결정 / 표면 품질" : "막질 / 품질";
   setActiveLanguage(language);
   const quizScore = useMemo(() => {
     return quizBank.reduce((score, item, index) => {
@@ -3238,7 +3239,7 @@ export default function App() {
               <div className="summary-cards">
                 <ResultCard label={result.primaryLabel} value={`${fmt(result.primary)} ${result.primaryUnit}`} target={chapter.key === "oxidation" ? "목표: 20-120 nm" : "목표 범위 내"} pass={result.verdict !== "FAIL"} />
                 <ResultCard label="균일도" value={`±${fmt(result.uniformity)}%`} target="목표: ≤ 3.0%" pass={result.uniformity <= 3} />
-                <ResultCard label="막질 / 품질" value={result.quality >= 82 ? "우수" : result.quality >= 65 ? "관리" : "불량"} target="목표: 우수 이상" pass={result.quality >= 78} />
+                <ResultCard label={qualityLabel} value={result.quality >= 82 ? "우수" : result.quality >= 65 ? "관리" : "불량"} target="목표: 우수 이상" pass={result.quality >= 78} />
                 <ResultCard label={result.secondaryLabel} value={`${fmt(result.secondary)} ${result.secondaryUnit}`} target="참조 window 비교" pass={result.risk < 65} />
               </div>
             </section>
